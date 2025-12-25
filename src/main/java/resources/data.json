@@ -1,0 +1,51 @@
+[
+  {
+	"depotName": "Sample_Depot",
+    "depotRefId": "Depot003",
+
+    "gateName": "GateA",
+    "gateRefId": "GATE123",
+    "gateAddress": "Kelambakkam",
+    "gateCity": "Chennai",
+    "gateState": "TamilNadu",
+    "gatePinCode": "603103",
+    "gateUser": "cr",
+
+    "consigneeName": "ABC Consignee",
+    "consigneeRef": "CON123",
+    "consigneeState": "TamilNadu",
+    "consigneeRegion": "South",
+    "consigneeCity": "Chennai",
+    "consigneePin": "603103",
+    "consigneeMobile": "9876543210",
+
+    "transporterName": "XYZ Transporter",
+    "transporterRef": "TR123",
+    "gst": "15",
+    "managerName": "Ramesh",
+    "managerMobile": "9876543211",
+    "managerEmail": "ramesh@test.com",
+
+    "materialName": "Steel Rod",
+    "materialCode": "MAT123",
+
+    "vehicleName": "Truck12",
+    "vehicleCft": "30",
+    "vehicleKg": "50",
+
+    "sourceDepot": "DEP123",
+    "vehicleType": "Sat12",
+    "indentRate": "10",
+    "transporterSearch": "XYZ",
+
+    "filterValue": "jest87",
+
+    "truckPrefix": "TN93",
+    "truckNumber": "8855",
+    "driverMobile": "9825758567",
+    "driverName": "Sharma",
+    "truckLength": "30",
+    "truckWidth": "20",
+    "truckHeight": "10"
+  }
+]
