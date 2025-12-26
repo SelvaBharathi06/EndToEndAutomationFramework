@@ -45,8 +45,8 @@ public class ConsigneePage extends BasePage {
 	@FindBy(xpath = "//div[contains(@class,'left-section')]//li[@class='color-changes category']")
 	private WebElement backToCategory;
 
-	public void createConsignee(String name, String refId, String stateValue, String regionValue, String cityValue,
-			String postal, String mobile) {
+	public void createConsignee(String name,String refId,String stateValue,String regionValue,
+			String cityValue,String postal,String mobile) {
 
 		waitForWebElementToBeClickable(addConsigneeButton);
 		addConsigneeButton.click();

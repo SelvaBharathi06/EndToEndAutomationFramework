@@ -29,9 +29,8 @@ public class IndentSourcePage extends BasePage {
 
     @FindBy(xpath = "//div[@aria-labelledby='el-drawer__title']//button/following-sibling::button")
     private WebElement confirmSourceButton;
+    
 
-
-    //Select source depot and proceed to Consignee step
     public IndentConsigneePage selectSourceDepot(String depotName) {
 
         waitForWebElementToBeClickable(addSourceLocationBtn);
@@ -40,10 +39,8 @@ public class IndentSourcePage extends BasePage {
         waitForWebElementToBeClickable(sourceSearchInput);
         sourceSearchInput.sendKeys(depotName);
 
-        // Wait until table loads at least one row
         wait.until(ExpectedConditions.visibilityOf(sourceTableRow));
 
-        // Click first radio safely (same as Demo JS click)
         ((JavascriptExecutor) driver)
                 .executeScript("arguments[0].click();", firstSourceRadio);
 

@@ -13,7 +13,6 @@ public class LandingPage extends BasePage {
         super(driver);
     }
 
-
     @FindBy(css = "li.app-side-menu")
     private WebElement menuIcon;
 
@@ -83,7 +82,6 @@ public class LandingPage extends BasePage {
         switchToNewWindow();
         return new VehiclePage(driver);
     }
-
 
     public IndentLandingPage openIndentLandingPage() {
         openMenu();

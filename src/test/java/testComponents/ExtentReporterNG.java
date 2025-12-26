@@ -15,7 +15,7 @@ public class ExtentReporterNG {
         ExtentReports extent = new ExtentReports();
         extent.attachReporter(reporter);
         extent.setSystemInfo("Tester", "Selva Bharathi");
-        extent.setSystemInfo("Framework", "Selenium + TestNG + POM");
+        extent.setSystemInfo("Framework", "Selenium + TestNG");
 
         return extent;
     }

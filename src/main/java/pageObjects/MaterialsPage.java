@@ -54,7 +54,6 @@ public class MaterialsPage extends BasePage {
 
         waitForWebElementToAppear(materialName);
         materialName.sendKeys(name);
-
         materialCode.sendKeys(code);
         width.sendKeys("50");
         length.sendKeys("80");

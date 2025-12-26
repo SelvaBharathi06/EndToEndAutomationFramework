@@ -2,6 +2,7 @@ package testComponents;
 
 import java.io.IOException;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -26,15 +27,40 @@ public class Listeners extends BaseTest implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
 
-        test.fail(result.getThrowable());
-
-        try {
-            String screenshotPath = takeScreenshot(result.getMethod().getMethodName());
-            test.addScreenCaptureFromPath(screenshotPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	test.fail(result.getThrowable());
+    	try {
+			driver= (WebDriver)result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
+		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	String filePath = null;
+		try {
+			filePath = takeScreenshot(result.getMethod().getMethodName(),driver);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		test.addScreenCaptureFromPath(filePath, result.getMethod().getMethodName());
     }
+    
+    @Override  
+    public void onTestSkipped(ITestResult result) {  
+        
+       
+    }  
+  
+    @Override  
+    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {  
+        
+        
+    }  
+  
+    @Override  
+    public void onStart(ITestContext context) {  
+         
+          
+    }  
 
     @Override
     public void onFinish(ITestContext context) {

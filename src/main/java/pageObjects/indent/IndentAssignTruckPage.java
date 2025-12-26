@@ -64,8 +64,6 @@ public class IndentAssignTruckPage extends BasePage {
     @FindBy(xpath = "//div[@role='alert']//h3")
     private WebElement assignSuccessMessage;
 
-
-
     @FindBy(xpath = "//span[@id='truck-reported-text']")
     private WebElement truckReported;
 
@@ -78,14 +76,11 @@ public class IndentAssignTruckPage extends BasePage {
     @FindBy(xpath = "//div[@class='action']//span//button[@type='button']")
     private WebElement truckInConfirmButton;
 
- 
     @FindBy(xpath = "//a[@id='document-link']")
     private WebElement documentLink;
 
     @FindBy(xpath = "//span[normalize-space()='DOWNLOAD']")
     private WebElement downloadButton;
-
-
 
     public void filterIndent(String filterValue) {
 
@@ -110,13 +105,8 @@ public class IndentAssignTruckPage extends BasePage {
         searchButton.click();
     }
 
-    public void assignTruck(String prefix,
-                            String number,
-                            String mobile,
-                            String driver,
-                            String length,
-                            String width,
-                            String height) {
+    public void assignTruck(String prefix, String number, String mobile, String driver,
+    		String length,String width,String height) {
 
         waitForWebElementToBeClickable(assignTruckButton);
         assignTruckButton.click();

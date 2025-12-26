@@ -46,8 +46,7 @@ public class BaseTest {
 			options.addArguments("--disable-notifications");
 			options.setExperimentalOption("excludeSwitches", Arrays.asList("disable-popup-blocking"));
 			Map<String, Object> prefs = new HashMap<>();
-			prefs.put("download.default_directory",
-			        System.getProperty("user.dir") + "\\" + prop.getProperty("download.path"));
+			prefs.put("download.default_directory", System.getProperty("user.dir") + "\\" + prop.getProperty("download.path"));
 			options.setExperimentalOption("prefs", prefs);
 			driver = new ChromeDriver(options);
 		}
@@ -71,19 +70,15 @@ public class BaseTest {
 	}
 
 	@AfterMethod
-	public void tearDown() {
-		if (driver != null) {
-			driver.quit();
-		}
+	public void tearDown() {	
+			driver.quit();		
 	}
 
-	public String takeScreenshot(String testName) throws IOException {
+	public String takeScreenshot(String testName, WebDriver driver) throws IOException {
 
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
-
 		String destination = System.getProperty("user.dir") + "/reports/screenshots/" + testName + ".png";
-
 		FileUtils.copyFile(source, new File(destination));
 		return destination;
 	}
@@ -96,5 +91,6 @@ public class BaseTest {
 		TypeReference<List<HashMap<String, String>>> typeRef = new TypeReference<List<HashMap<String, String>>>() {};
 		List<HashMap<String,String>> data = mapper.readValue(jsonContent,typeRef);
 		return data;
+		
 	}
 }

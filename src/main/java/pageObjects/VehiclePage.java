@@ -42,9 +42,7 @@ public class VehiclePage extends BasePage {
     @FindBy(xpath = "//div[@role='alert']//span")
     private WebElement successMessage;
 
-    public void createVehicle(String name,
-                              String cftValue,
-                              String kgValue) {
+    public void createVehicle(String name,String cftValue, String kgValue) {
 
         waitForWebElementToBeClickable(addVehicleButton);
         addVehicleButton.click();

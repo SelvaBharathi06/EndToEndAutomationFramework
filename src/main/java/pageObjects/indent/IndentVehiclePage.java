@@ -28,7 +28,6 @@ public class IndentVehiclePage extends BasePage {
 	@FindBy(xpath = "//input[@placeholder='INR']")
 	private WebElement rateInput;
 
-	//Select delivery type, vehicle type and rate
 	public IndentTransporterPage selectVehicle(String vehicleType, String rate) {
 
 		waitForWebElementToBeClickable(deliveryTypeInput);
@@ -41,13 +40,10 @@ public class IndentVehiclePage extends BasePage {
 		vehicleTypeInput.click();
 
 		waitForWebElementToAppear(vehicleTypeOption);
-
-		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});",
-				vehicleTypeOption);
+		
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});",vehicleTypeOption);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", vehicleTypeOption);
-
 		wait.until(driver -> vehicleTypeInput.getAttribute("value").contains(vehicleType));
-
 		rateInput.clear();
 		rateInput.sendKeys(rate);
 

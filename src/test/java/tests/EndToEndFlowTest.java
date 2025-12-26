@@ -16,60 +16,52 @@ public class EndToEndFlowTest extends BaseTest {
 	@Test(dataProvider = "getIndentData")
 	public void completeIndentFlow(HashMap<String, String> data) {
 
-		// DEPOT
+		//depot
 		landingPage.openMDMLanding();
 		DepotPage depotPage = landingPage.openDepotPage();
-
 		depotPage.createDepot(data.get("depotName"),data.get("depotRefId"));
-		//Assert.assertEquals(depotPage.getDepotSuccessMessage(), "Depot added successfully");
-
+		Assert.assertEquals(depotPage.getDepotSuccessMessage(), "Depot added successfully");
 		depotPage.searchAndOpenDepot(data.get("depotRefId"));
 		depotPage.addGate(data.get("gateName"), data.get("gateRefId"), data.get("gateAddress"), data.get("gateCity"),
 				data.get("gateState"), data.get("gatePinCode"), data.get("gateUser"));
-
 		depotPage.navigateBackToDepot();
 		depotPage.closeAndReturnToParent();
 
-		// CONSIGNEE
+		//consignee
 		ConsigneePage consigneePage = landingPage.openConsigneePage();
 		consigneePage.createConsignee(data.get("consigneeName"), data.get("consigneeRef"), data.get("consigneeState"),
 				data.get("consigneeRegion"), data.get("consigneeCity"), data.get("consigneePin"),
 				data.get("consigneeMobile"));
 		consigneePage.navigateBackToCategory();
 
-		// TRANSPORTER
+		//transporter
 		TransporterPage transporterPage = landingPage.openTransporterPage();
 		transporterPage.createTransporter(data.get("transporterName"), data.get("transporterRef"), data.get("gst"));
 		transporterPage.addManager(data.get("managerName"), data.get("managerMobile"), data.get("managerEmail"));
 		transporterPage.navigateBackToCategory();
 
-		// MATERIAL
+		//material
 		MaterialsPage materialsPage = landingPage.openMaterialsPage();
 		materialsPage.createMaterial(data.get("materialName"), data.get("materialCode"));
 
-		// VEHICLE
+		//vehicle
 		VehiclePage vehiclePage = landingPage.openVehiclePage();
 		vehiclePage.createVehicle(data.get("vehicleName"), data.get("vehicleCft"), data.get("vehicleKg"));
 
-		// INDENT
+		//indent
 		IndentLandingPage indentLanding = landingPage.openIndentLandingPage();
-
 		String indentId = indentLanding.clickAddIndent().selectSourceDepot(data.get("sourceDepot"))
 				.selectConsignee(data.get("consigneeRef"))
 				.selectVehicle(data.get("vehicleType"), data.get("indentRate"))
 				.createIndent(data.get("transporterSearch"));
-
 		Assert.assertTrue(indentId.contains("INDENT"));
 
-		// ASSIGN TRUCK
+		//assign truck
 		IndentAssignTruckPage assignTruckPage = new IndentAssignTruckPage(driver);
-
 		assignTruckPage.filterIndent(data.get("filterValue"));
 		assignTruckPage.searchIndentById(indentId);
-
 		assignTruckPage.assignTruck(data.get("truckPrefix"), data.get("truckNumber"), data.get("driverMobile"),
 				data.get("driverName"), data.get("truckLength"), data.get("truckWidth"), data.get("truckHeight"));
-
 		assignTruckPage.markTruckReported();
 		assignTruckPage.markTruckIn();
 		assignTruckPage.downloadDocuments();

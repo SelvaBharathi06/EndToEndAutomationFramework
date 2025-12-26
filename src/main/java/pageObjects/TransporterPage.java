@@ -13,8 +13,6 @@ public class TransporterPage extends BasePage {
         super(driver);
     }
 
- 
-
     @FindBy(xpath = "//button[contains(@class,'header_pbtn')]")
     private WebElement addTransporterButton;
 
@@ -39,15 +37,11 @@ public class TransporterPage extends BasePage {
     @FindBy(xpath = "(//li[contains(@class,'el-select-dropdown__item')]//span[normalize-space()='Active'])[last()]")
     private WebElement activeStatusOption;
 
-
-
     @FindBy(xpath = "//h5[normalize-space()='Generate LR']/ancestor::div[contains(@class,'row')]//div[contains(@class,'el-switch')]")
     private WebElement generateLRSwitch;
 
     @FindBy(xpath = "//h5[normalize-space()='Auto Extend LR Series']/ancestor::div[contains(@class,'row')]//div[contains(@class,'el-switch')]")
     private WebElement autoExtendSwitch;
-
-
 
     @FindBy(xpath = "(//span[contains(text(),'Add')])[3]")
     private WebElement addManagerButton;

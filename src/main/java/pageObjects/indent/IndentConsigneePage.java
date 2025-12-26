@@ -46,7 +46,6 @@ public class IndentConsigneePage extends BasePage {
 
         waitForWebElementToBeClickable(firstConsigneeCheckbox);
 
-        // JS click to avoid flaky checkbox issues
         ((JavascriptExecutor) driver)
                 .executeScript("arguments[0].click();", firstConsigneeCheckbox);
 

@@ -29,7 +29,7 @@
 
   <dependencies>
     
-     <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 <dependency>
     <groupId>org.seleniumhq.selenium</groupId>
     <artifactId>selenium-java</artifactId>
@@ -42,13 +42,11 @@
     <version>2.13.0</version> <!-- latest as of 2025 -->
 </dependency>
 
-
 <dependency>
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-core</artifactId>
     <version>2.20.0</version>
 </dependency>
-
 
 <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
 <dependency>
@@ -71,6 +69,7 @@
     <version>7.10.2</version>
     <scope>test</scope>
 </dependency>
+
 <!-- Jackson Core -->
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
@@ -92,14 +91,13 @@
     <version>2.17.1</version>
 </dependency>
 
-
-
 <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
 <dependency>
     <groupId>com.aventstack</groupId>
     <artifactId>extentreports</artifactId>
     <version>5.1.2</version>
 </dependency>
+
   </dependencies>
 
   <build>

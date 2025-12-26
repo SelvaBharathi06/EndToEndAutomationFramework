@@ -35,16 +35,13 @@ public class IndentTransporterPage extends BasePage {
     @FindBy(xpath = "//div[@role='alert']//span")
     private WebElement indentSuccessMessage;
 
-    // Select transporter and create indent
  
     public String createIndent(String transporterName) {
 
         waitForWebElementToAppear(transporterHeader);
 
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView(true);", transporterHeader);
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].click();", transporterHeader);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", transporterHeader);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", transporterHeader);
 
         waitForWebElementToAppear(transporterSlider);
 
@@ -52,15 +49,13 @@ public class IndentTransporterPage extends BasePage {
         transporterSearchInput.sendKeys(transporterName);
 
         waitForWebElementToAppear(transporterRadioButton);
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].click();", transporterRadioButton);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", transporterRadioButton);
 
         waitForWebElementToBeClickable(indentButton);
         indentButton.click();
 
         waitForWebElementToBeClickable(submitButton);
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].click();", submitButton);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", submitButton);
 
         waitForWebElementToAppear(indentSuccessMessage);
         return indentSuccessMessage.getText();

@@ -1,5 +1,8 @@
 package pageObjects;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -16,20 +19,12 @@ public class DepotPage extends BasePage {
         super(driver);
     }
 
-    /* =====================================================
-       CREATE DEPOT – LOCATORS
-       ===================================================== */
-
     @FindBy(xpath = "//button[contains(@class,'header_pbtn')]")
     private WebElement addDepotButton;
 
-   // @FindBy(css = "input[placeholder='Enter Depot Name']")
-   // private WebElement depotName;
+    @FindBy(css = "input[placeholder='Enter Depot Name']")
+    private WebElement depotName;
     
-    //@FindBy(css = "input.el-input__inner")
-    //private WebElement depotName;
-
-
     @FindBy(css = "input[placeholder='Enter Reference Id']")
     private WebElement depotReferenceId;
 
@@ -63,10 +58,6 @@ public class DepotPage extends BasePage {
     @FindBy(xpath = "//div[@role='alert']//span")
     private WebElement depotSuccessMessage;
 
-    /* =====================================================
-       SEARCH / EDIT DEPOT
-       ===================================================== */
-
     @FindBy(xpath = "//div[@class='app-search-label']")
     private WebElement searchLabel;
 
@@ -75,10 +66,6 @@ public class DepotPage extends BasePage {
 
     @FindBy(xpath = "//div[contains(@class,'el-col el-col-3')]//span[@class='link-action']")
     private WebElement editDepotButton;
-
-    /* =====================================================
-       GATE CREATION
-       ===================================================== */
 
     @FindBy(xpath = "//small[normalize-space()='Click here to add a gate']")
     private WebElement addGateLink;
@@ -110,10 +97,6 @@ public class DepotPage extends BasePage {
     @FindBy(xpath = "//main[@class='container-fluid main-content']//button/following-sibling::button")
     private WebElement saveGateButton;
 
-    /* =====================================================
-       BREADCRUMB
-       ===================================================== */
-
     @FindBy(xpath = "//span[@class='el-breadcrumb__item']/span[text()='Depot']")
     private WebElement depotBreadcrumb;
   
@@ -121,27 +104,19 @@ public class DepotPage extends BasePage {
 
         waitForWebElementToBeClickable(addDepotButton);
         addDepotButton.click();
-
-        // 🔥 ALWAYS re-locate Element-UI input
-        By depotNameInput = By.xpath(
-            "//label[text()='Depot Name']/following::input[contains(@class,'el-input__inner')][1]"
-        );
-
-        WebElement depotName =
-                wait.until(ExpectedConditions.elementToBeClickable(depotNameInput));
-
-        depotName.click();
-        depotName.clear();
+        
+        waitForWebElementToAppear(depotName);
         depotName.sendKeys(depotNameValue);
+        
+        Calendar cal = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		String date = format.format(cal.getTime());
+		System.out.println(date);		
+		String[] splittedDate = date.split("/");
+		System.out.println(splittedDate[1]);
+        depotReferenceId.sendKeys(referenceId + splittedDate[1] );
 
-        // Trigger validation
-        depotName.sendKeys(Keys.TAB);
-
-        // ---- UNIQUE REFERENCE ID ----
-        depotReferenceId.clear();
-        depotReferenceId.sendKeys(referenceId + "_" + System.currentTimeMillis());
-
-        depotShortCode.sendKeys("SA2129");
+        depotShortCode.sendKeys("SA129");
         gstin.sendKeys("09");
         address.sendKeys("Kelambakkam");
         city.sendKeys("Chennai");
@@ -155,14 +130,12 @@ public class DepotPage extends BasePage {
         createDepotButton.click();
     }
 
-
-    /* GET SUCCESS MESSAGE 
     public String getDepotSuccessMessage() {
         waitForWebElementToAppear(depotSuccessMessage);
         return depotSuccessMessage.getText().trim();
-    }*/
+    }
 
-    /** SEARCH AND OPEN DEPOT (ROBUST) */
+  
     public void searchAndOpenDepot(String depotReferenceIdValue) {
 
         waitForWebElementToBeClickable(depotBreadcrumb);
@@ -188,14 +161,9 @@ public class DepotPage extends BasePage {
         editDepotButton.click();
     }
 
-    /** ADD GATE – FULLY DATA-DRIVEN */
-    public void addGate(String gateNameValue,
-                        String gateRefIdValue,
-                        String addressValue,
-                        String cityValue,
-                        String stateValue,
-                        String pinCodeValue,
-                        String userSearchText) {
+ 
+    public void addGate(String gateNameValue,String gateRefIdValue,String addressValue, String cityValue,
+                        String stateValue,String pinCodeValue, String userSearchText) {
 
         waitForWebElementToBeClickable(addGateLink);
         addGateLink.click();
@@ -222,7 +190,7 @@ public class DepotPage extends BasePage {
         saveGateButton.click();
     }
 
-    /** NAVIGATE BACK TO DEPOT LIST */
+
     public void navigateBackToDepot() {
         waitForWebElementToBeClickable(depotBreadcrumb);
         depotBreadcrumb.click();

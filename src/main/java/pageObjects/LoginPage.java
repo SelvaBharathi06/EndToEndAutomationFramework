@@ -12,7 +12,6 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-
     @FindBy(xpath = "//input[@type='text']")
     private WebElement usernameInput;
 
@@ -21,12 +20,10 @@ public class LoginPage extends BasePage {
 
     @FindBy(css = "div.button-style button")
     private WebElement loginButton;
-
-  
+ 
     public void goToLoginPage() {
         driver.get("https://qa.pandostaging.in/login/azure");
     }
-
   
     public LandingPage login(String username, String password) {
 
