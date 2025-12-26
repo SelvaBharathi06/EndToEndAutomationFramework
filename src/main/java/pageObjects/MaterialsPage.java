@@ -70,4 +70,6 @@ public class MaterialsPage extends BasePage {
         waitForWebElementToAppear(successMessage);
         return successMessage.getText().trim();
     }
+    
+    
 }

@@ -136,12 +136,10 @@ public class DepotPage extends BasePage {
     }
 
   
-    public void searchAndOpenDepot(String depotReferenceIdValue) {
+    public void searchAndOpenDepot(String depotReferenceIdValue) throws InterruptedException {
 
-        waitForWebElementToBeClickable(depotBreadcrumb);
-        depotBreadcrumb.click();
-
-        waitForWebElementToBeClickable(searchLabel);
+    	
+        waitForWebElementToAppear(searchLabel);
         ((JavascriptExecutor) driver)
                 .executeScript("arguments[0].click();", searchLabel);
 
@@ -151,7 +149,7 @@ public class DepotPage extends BasePage {
         WebElement searchInput =
                 driver.findElement(By.xpath("//input[@placeholder='Enter Depot']"));
 
-        searchInput.clear();
+        
         searchInput.sendKeys(depotReferenceIdValue);
 
         waitForWebElementToBeClickable(searchButton);

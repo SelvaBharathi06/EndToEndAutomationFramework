@@ -14,7 +14,7 @@ import testComponents.BaseTest;
 public class EndToEndFlowTest extends BaseTest {
 
 	@Test(dataProvider = "getIndentData")
-	public void completeIndentFlow(HashMap<String, String> data) {
+	public void completeIndentFlow(HashMap<String, String> data) throws InterruptedException {
 
 		//depot
 		landingPage.openMDMLanding();
