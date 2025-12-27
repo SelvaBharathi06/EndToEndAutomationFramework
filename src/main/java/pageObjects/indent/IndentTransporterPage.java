@@ -58,6 +58,7 @@ public class IndentTransporterPage extends BasePage {
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", submitButton);
 
         waitForWebElementToAppear(indentSuccessMessage);
-        return indentSuccessMessage.getText();
+        String text = indentSuccessMessage.getText();
+        return text.split("number")[1].trim();
     }
 }

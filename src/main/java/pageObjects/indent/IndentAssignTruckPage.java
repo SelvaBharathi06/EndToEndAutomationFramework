@@ -1,5 +1,6 @@
 package pageObjects.indent;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -156,4 +157,12 @@ public class IndentAssignTruckPage extends BasePage {
         waitForWebElementToBeClickable(downloadButton);
         downloadButton.click();
     }
+    
+    public String getIndentStatus(String indentId) {
+        WebElement status =
+            driver.findElement(By.id("indentv2-outbound-status-" + indentId));
+        waitForWebElementToAppear(status);
+        return status.getText().trim();
+    }
+
 }

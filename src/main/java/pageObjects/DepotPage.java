@@ -60,6 +60,9 @@ public class DepotPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='app-search-label']")
     private WebElement searchLabel;
+    
+    @FindBy(css = "input[placeholder='Enter Pin Code']")
+    private WebElement gatePinCode;
 
     @FindBy(css = "button.btn.section_pbtn")
     private WebElement searchButton;
@@ -85,8 +88,8 @@ public class DepotPage extends BasePage {
     @FindBy(css = "input[placeholder='Enter State']")
     private WebElement gateState;
 
-    @FindBy(css = "input[placeholder='Enter Pin Code']")
-    private WebElement gatePinCode;
+    @FindBy(xpath = "//input[@placeholder='Enter Depot']")
+    private WebElement searchInput;
 
     @FindBy(xpath = "//input[@placeholder='Search user to add']")
     private WebElement searchUserInput;
@@ -136,25 +139,14 @@ public class DepotPage extends BasePage {
     }
 
   
-    public void searchAndOpenDepot(String depotReferenceIdValue) throws InterruptedException {
-
-    	
-        waitForWebElementToAppear(searchLabel);
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].click();", searchLabel);
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//input[@placeholder='Enter Depot']")));
-
-        WebElement searchInput =
-                driver.findElement(By.xpath("//input[@placeholder='Enter Depot']"));
-
-        
+    public void searchAndOpenDepot(String depotReferenceIdValue) throws InterruptedException 
+    {
+    	waitForWebElementToAppear(searchLabel);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", searchLabel);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Enter Depot']")));  
         searchInput.sendKeys(depotReferenceIdValue);
-
         waitForWebElementToBeClickable(searchButton);
         searchButton.click();
-
         waitForWebElementToBeClickable(editDepotButton);
         editDepotButton.click();
     }

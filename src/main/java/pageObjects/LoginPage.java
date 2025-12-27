@@ -29,10 +29,8 @@ public class LoginPage extends BasePage {
 
         waitForWebElementToBeClickable(usernameInput);
         usernameInput.sendKeys(username);
-
         passwordInput.sendKeys(password);
         loginButton.click();
-
         return new LandingPage(driver);
     }
 }

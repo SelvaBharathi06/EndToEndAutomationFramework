@@ -23,7 +23,7 @@ public class EndToEndFlowTest extends BaseTest {
 		Assert.assertEquals(depotPage.getDepotSuccessMessage(), "Depot added successfully");
 		depotPage.searchAndOpenDepot(data.get("depotRefId"));
 		depotPage.addGate(data.get("gateName"), data.get("gateRefId"), data.get("gateAddress"), data.get("gateCity"),
-				data.get("gateState"), data.get("gatePinCode"), data.get("gateUser"));
+				data.get("gateState"), data.get("gatePinCode"), data.get("gateUser"));		
 		depotPage.navigateBackToDepot();
 		depotPage.closeAndReturnToParent();
 
@@ -32,6 +32,7 @@ public class EndToEndFlowTest extends BaseTest {
 		consigneePage.createConsignee(data.get("consigneeName"), data.get("consigneeRef"), data.get("consigneeState"),
 				data.get("consigneeRegion"), data.get("consigneeCity"), data.get("consigneePin"),
 				data.get("consigneeMobile"));
+		Assert.assertEquals( consigneePage.getConsigneeSuccessMessage(),"Consignee Created Successfully");
 		consigneePage.navigateBackToCategory();
 
 		//transporter
@@ -43,17 +44,22 @@ public class EndToEndFlowTest extends BaseTest {
 		//material
 		MaterialsPage materialsPage = landingPage.openMaterialsPage();
 		materialsPage.createMaterial(data.get("materialName"), data.get("materialCode"));
-
+		Assert.assertEquals( materialsPage.getMaterialSuccessMessage(),"Material Created Successfully");
+		materialsPage.closeAndReturnToParent();
+		
 		//vehicle
 		VehiclePage vehiclePage = landingPage.openVehiclePage();
 		vehiclePage.createVehicle(data.get("vehicleName"), data.get("vehicleCft"), data.get("vehicleKg"));
-
+		Assert.assertEquals(vehiclePage.getVehicleSuccessMessage(), "Record Added!");
+		vehiclePage.closeAndReturnToParent();
+		
 		//indent
 		IndentLandingPage indentLanding = landingPage.openIndentLandingPage();
-		String indentId = indentLanding.clickAddIndent().selectSourceDepot(data.get("sourceDepot"))
-				.selectConsignee(data.get("consigneeRef"))
-				.selectVehicle(data.get("vehicleType"), data.get("indentRate"))
-				.createIndent(data.get("transporterSearch"));
+		IndentSourcePage indentSourcePage =indentLanding.clickAddIndent();
+		IndentConsigneePage indentConsigneePage	= indentSourcePage.selectSourceDepot(data.get("sourceDepot"));
+		IndentVehiclePage indentVehicle = indentConsigneePage.selectConsignee(data.get("consigneeRef"));
+		IndentTransporterPage indentTransporterPage = indentVehicle.selectVehicle(data.get("vehicleType"), data.get("indentRate"));
+		String indentId = indentTransporterPage.createIndent(data.get("transporterSearch"));
 		Assert.assertTrue(indentId.contains("INDENT"));
 
 		//assign truck
@@ -62,6 +68,7 @@ public class EndToEndFlowTest extends BaseTest {
 		assignTruckPage.searchIndentById(indentId);
 		assignTruckPage.assignTruck(data.get("truckPrefix"), data.get("truckNumber"), data.get("driverMobile"),
 				data.get("driverName"), data.get("truckLength"), data.get("truckWidth"), data.get("truckHeight"));
+	    Assert.assertEquals(assignTruckPage.getIndentStatus(indentId),"ASSIGNED");
 		assignTruckPage.markTruckReported();
 		assignTruckPage.markTruckIn();
 		assignTruckPage.downloadDocuments();

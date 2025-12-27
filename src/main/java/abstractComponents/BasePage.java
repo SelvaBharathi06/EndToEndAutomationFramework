@@ -16,6 +16,7 @@ public class BasePage {
 
 	protected WebDriver driver;
 	protected WebDriverWait wait;
+	protected String parentWindow;
 
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
@@ -37,22 +38,8 @@ public class BasePage {
 		wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
-	public void openSideMenu() {
-		waitForWebElementToBeClickable(sideMenuIcon);
-		sideMenuIcon.click();
-	}
-
-	public void selectRequiredPage(String pageName) {
-		for (WebElement item : sideMenuItems) {
-			if (item.getText().trim().equalsIgnoreCase(pageName)) {
-				waitForWebElementToBeClickable(item);
-				item.click();
-				break;
-			}
-		}
-	}
-
 	public void switchToNewWindow() {
+		parentWindow = driver.getWindowHandle();
 		Set<String> windows = driver.getWindowHandles();
 		Iterator<String> iterator = windows.iterator();
 		iterator.next(); // parent
@@ -60,17 +47,9 @@ public class BasePage {
 	}
 
 	public void closeAndReturnToParent() {
-
-	    String parentWindow = driver.getWindowHandle();
-
+		
 	    driver.close();
-
-	    for (String window : driver.getWindowHandles()) {
-	        if (!window.equals(parentWindow)) {
-	            driver.switchTo().window(window);
-	            break;
-	        }
-	    }
+	    driver.switchTo().window(parentWindow);	      
 	}
 
 

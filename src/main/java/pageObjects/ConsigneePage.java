@@ -53,7 +53,6 @@ public class ConsigneePage extends BasePage {
 
 		waitForWebElementToAppear(consigneeName);
 		consigneeName.sendKeys(name);
-
 		referenceId.sendKeys(refId);
 		state.sendKeys(stateValue);
 		region.sendKeys(regionValue);

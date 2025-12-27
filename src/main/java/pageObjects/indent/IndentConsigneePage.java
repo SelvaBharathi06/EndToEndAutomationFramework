@@ -15,7 +15,7 @@ public class IndentConsigneePage extends BasePage {
 
 
     @FindBy(xpath = "//div[@class='add-block']")
-    private WebElement addBlock;
+    private WebElement addDropOff;
 
     @FindBy(xpath = "//div[@id='tab-2']")
     private WebElement consigneeTab;
@@ -35,8 +35,8 @@ public class IndentConsigneePage extends BasePage {
 
     public IndentVehiclePage selectConsignee(String consigneeName) {
 
-        waitForWebElementToBeClickable(addBlock);
-        addBlock.click();
+        waitForWebElementToBeClickable(addDropOff);
+        addDropOff.click();
 
         waitForWebElementToBeClickable(consigneeTab);
         consigneeTab.click();
