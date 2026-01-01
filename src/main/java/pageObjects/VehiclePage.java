@@ -47,7 +47,7 @@ public class VehiclePage extends BasePage {
         waitForWebElementToBeClickable(addVehicleButton);
         addVehicleButton.click();
 
-        waitForWebElementToAppear(vehicleName);
+        waitForWebElementToBeClickable(vehicleName);
         vehicleName.sendKeys(name);
 
         cft.sendKeys(cftValue);

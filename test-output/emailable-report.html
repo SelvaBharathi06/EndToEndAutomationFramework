@@ -8,69 +8,12 @@
 <body>
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
-<tr><th colspan="8">Default suite</th></tr>
-<tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">29,870</td><td></td><td></td></tr>
+<tr><th colspan="8">Pando Automation Suite</th></tr>
+<tr><td><a href="#t0">End To End Flow Test</a></td><td class="num">2</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">74,267</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">tests.EndToEndFlowTest</td><td><a href="#m0">completeIndentFlow</a></td><td rowspan="1">1766744166163</td><td rowspan="1">23613</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Pando Automation Suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">End To End Flow Test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="2">tests.EndToEndFlowTest</td><td><a href="#m0">completeIndentFlow</a></td><td rowspan="1">1767283299503</td><td rowspan="1">57851</td></tr><tr class="passedeven"><td><a href="#m1">endToEndTruckInFlow</a></td><td rowspan="1">1767283361202</td><td rowspan="1">7918</td></tr></tbody>
 </table>
-<h2>Default test</h2><h3 id="m0">tests.EndToEndFlowTest#completeIndentFlow</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>{vehicleName=Truck12, gateState=TamilNadu, gateUser=cr, gst=15, consigneeRegion=South, managerName=Ramesh, gateName=GateA, consigneeName=ABC Consignee, transporterSearch=XYZ, managerEmail=ramesh@test.com, transporterName=XYZ Transporter, vehicleKg=50, depotRefId=DepotSAM10, driverMobile=9825758567, consigneeMobile=9876543210, vehicleType=Sat12, gateCity=Chennai, truckNumber=8855, depotName=Sam06, truckWidth=20, transporterRef=TR123, managerMobile=9876543211, sourceDepot=DEP123, gateAddress=Kelambakkam, gatePinCode=603103, materialCode=MAT123, consigneeRef=CON123, truckHeight=10, consigneePin=603103, materialName=Steel Rod, consigneeState=TamilNadu, filterValue=jest87, truckPrefix=TN93, vehicleCft=30, gateRefId=GATE123, driverName=Sharma, truckLength=30, indentRate=10, consigneeCity=Chennai}</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //input[@placeholder=&apos;Enter Depot&apos;] (tried for 10 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-	at pageObjects.DepotPage.searchAndOpenDepot(DepotPage.java:146)
-	at tests.EndToEndFlowTest.completeIndentFlow(EndToEndFlowTest.java:24)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
-	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
-	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
-	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
-	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
-	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
-	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at org.testng.TestRunner.privateRun(TestRunner.java:739)
-	at org.testng.TestRunner.run(TestRunner.java:614)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
-	at org.testng.TestNG.runSuites(TestNG.java:1112)
-	at org.testng.TestNG.run(TestNG.java:1079)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//input[@placeholder=&apos;Enter Depot&apos;]&quot;}
-  (Session info: chrome=143.0.7499.170)
-For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
-Build info: version: &apos;4.28.1&apos;, revision: &apos;73f5ad48a2&apos;
-System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.8&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [4d9770dd0785736dcd76e9325f7e3449, findElement {value=//input[@placeholder=&apos;Enter Depot&apos;], using=xpath}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 143.0.7499.170, chrome: {chromedriverVersion: 143.0.7499.169 (164b20aab62..., userDataDir: C:\Users\shank\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54708}, goog:processID: 17568, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:54708/devtoo..., se:cdpVersion: 143.0.7499.170, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 4d9770dd0785736dcd76e9325f7e3449
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
-	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
-	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:171)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:168)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
-	... 28 more
-</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>End To End Flow Test</h2><h3 id="m0">tests.EndToEndFlowTest#completeIndentFlow</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>{vehicleName=TruckN46, gateState=TamilNadu, gateUser=Selva, gst=15, consigneeRegion=South, managerName=ManagerN46, gateName=GateN46, consigneeName=ConsigneeN46, transporterSearch=Bh, managerEmail=manager46@test.com, transporterName=TransporterN46, vehicleKg=50, depotRefId=DN46, driverMobile=9825758567, consigneeMobile=9876543210, gateCity=Chennai, truckNumber=5521, depotName=DepotN46, truckWidth=20, transporterRef=TNN46, managerMobile=9876533211, sourceDepot=DEP123, gateAddress=Kelambakkam, gatePinCode=603103, materialCode=MAT46, consigneeRef=CN46, truckHeight=10, consigneePin=603103, materialName=SteelRod, consigneeState=TamilNadu, filterValue=jest87, truckPrefix=TN93, vehicleCft=30, gateRefId=GN46, driverName=Sharma, truckLength=30, indentRate=10, consigneeCity=Chennai}</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">tests.EndToEndFlowTest#endToEndTruckInFlow</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

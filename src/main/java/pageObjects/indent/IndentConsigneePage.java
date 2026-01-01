@@ -33,7 +33,7 @@ public class IndentConsigneePage extends BasePage {
     private WebElement proceedToVehicleBtn;
 
 
-    public IndentVehiclePage selectConsignee(String consigneeName) {
+    public IndentVehiclePage selectConsignee(String consigneeRefNo) {
 
         waitForWebElementToBeClickable(addDropOff);
         addDropOff.click();
@@ -42,7 +42,7 @@ public class IndentConsigneePage extends BasePage {
         consigneeTab.click();
 
         waitForWebElementToBeClickable(consigneeSearchInput);
-        consigneeSearchInput.sendKeys(consigneeName);
+        consigneeSearchInput.sendKeys(consigneeRefNo);                                                                                           
 
         waitForWebElementToBeClickable(firstConsigneeCheckbox);
 

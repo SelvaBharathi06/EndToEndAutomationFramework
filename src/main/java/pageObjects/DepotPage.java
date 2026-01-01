@@ -1,5 +1,6 @@
 package pageObjects;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -64,7 +65,7 @@ public class DepotPage extends BasePage {
     @FindBy(css = "input[placeholder='Enter Pin Code']")
     private WebElement gatePinCode;
 
-    @FindBy(css = "button.btn.section_pbtn")
+    @FindBy(css = "button[class='btn section_pbtn']")
     private WebElement searchButton;
 
     @FindBy(xpath = "//div[contains(@class,'el-col el-col-3')]//span[@class='link-action']")
@@ -93,31 +94,47 @@ public class DepotPage extends BasePage {
 
     @FindBy(xpath = "//input[@placeholder='Search user to add']")
     private WebElement searchUserInput;
-
-    @FindBy(xpath = "(//div[contains(@class,'list-boxed') and contains(@class,'list-item')])[1]")
-    private WebElement firstUserResult;
-
+    
     @FindBy(xpath = "//main[@class='container-fluid main-content']//button/following-sibling::button")
     private WebElement saveGateButton;
 
     @FindBy(xpath = "//span[@class='el-breadcrumb__item']/span[text()='Depot']")
     private WebElement depotBreadcrumb;
+    
+    @FindBy(xpath = "//button[normalize-space()='Upload']")
+    private WebElement uploadBtn;
+    
+    @FindBy(xpath = "//table[contains(@class,'el-table__body')]//tbody/tr[1]")
+    private WebElement firstRow;
+    
+    @FindBy(xpath = "//li[@class='el-select-dropdown__item']//span[contains(text(),'Depot Bulk Upload')]")
+    private WebElement depotBulkUpload;
+    
+    @FindBy(xpath = "//button[@type='button']//span[contains(text(),'UPLOAD')]")
+    private WebElement upload;
+    
+    @FindBy(xpath = "//button[@class='el-button ml-20 el-button--primary el-button--small']")
+    private WebElement confirm;
+
+    
+    By firstResult = By.xpath("(//div[contains(@class,'list-boxed') and contains(@class,'list-item')])[1]");
   
-    public void createDepot(String depotNameValue, String referenceId) {
+    public void createDepot(String depotNameValue, String referenceId) throws InterruptedException {
 
         waitForWebElementToBeClickable(addDepotButton);
         addDepotButton.click();
         
+        Thread.sleep(2000);
         waitForWebElementToAppear(depotName);
         depotName.sendKeys(depotNameValue);
-        
-        Calendar cal = Calendar.getInstance();
+            
+        /*Calendar cal = Calendar.getInstance();
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 		String date = format.format(cal.getTime());
 		System.out.println(date);		
 		String[] splittedDate = date.split("/");
-		System.out.println(splittedDate[1]);
-        depotReferenceId.sendKeys(referenceId + splittedDate[1] );
+		System.out.println(splittedDate[1]);*/
+        depotReferenceId.sendKeys(referenceId);
 
         depotShortCode.sendKeys("SA129");
         gstin.sendKeys("09");
@@ -134,21 +151,24 @@ public class DepotPage extends BasePage {
     }
 
     public String getDepotSuccessMessage() {
-        waitForWebElementToAppear(depotSuccessMessage);
-        return depotSuccessMessage.getText().trim();
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='alert']")));
+    	String depotMsg =driver.findElement(By.xpath("//div[@role='alert']//span")).getText().trim();
+		System.out.println(depotMsg);
+        return depotMsg;
     }
 
   
-    public void searchAndOpenDepot(String depotReferenceIdValue) throws InterruptedException 
-    {
-    	waitForWebElementToAppear(searchLabel);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", searchLabel);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Enter Depot']")));  
+    public void searchAndOpenDepot(String depotReferenceIdValue) throws InterruptedException {
+    	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='app-search-label']")));
+    	searchLabel.click();
+    	
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Enter Depot']")));
+        searchInput.clear();
         searchInput.sendKeys(depotReferenceIdValue);
-        waitForWebElementToBeClickable(searchButton);
         searchButton.click();
-        waitForWebElementToBeClickable(editDepotButton);
-        editDepotButton.click();
+        
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'el-col el-col-3')]//span[@class='link-action']")));
+        editDepotButton.click();               
     }
 
  
@@ -173,16 +193,42 @@ public class DepotPage extends BasePage {
 
         searchUserInput.clear();
         searchUserInput.sendKeys(userSearchText);
+        WebElement searchUserInput = wait.until( ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Search user to add']") ));
+		searchUserInput.clear();
+		searchUserInput.sendKeys("Selva");
 
-        waitForWebElementToAppear(firstUserResult);
-        firstUserResult.click();
-
-        saveGateButton.click();
+		WebElement userResult = wait.until(ExpectedConditions.visibilityOfElementLocated(firstResult));
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].click();", userResult);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//main[@class='container-fluid main-content']//button/following-sibling::button"))).click();
+				
     }
 
 
     public void navigateBackToDepot() {
+    	
         waitForWebElementToBeClickable(depotBreadcrumb);
         depotBreadcrumb.click();
     }
+    
+    
+    public void bulkDepotUpload() throws InterruptedException, IOException
+    {
+    	ExcelUtility.excel();  		
+    	uploadBtn.click();	
+		WebElement uploadTypeInput =firstRow.findElement(By.xpath(".//td[2]//input"));
+		uploadTypeInput.click();
+		WebElement option = wait.until(ExpectedConditions.elementToBeClickable(depotBulkUpload));
+		option.click();				
+		upload.click();
+		Thread.sleep(1000);
+		System.out.println("Starting Depot Bulk Upload...");
+		Runtime.getRuntime().exec("C:\\Users\\shank\\Downloads\\SelvaDepotBulkUpload.exe");	
+		System.out.println("Upload completed successfully");		
+		//WebElement confirmButton = wait.until(ExpectedConditions.elementToBeClickable(confirm));
+		//confirmButton.click();
+		
+    }
+    
+    
 }

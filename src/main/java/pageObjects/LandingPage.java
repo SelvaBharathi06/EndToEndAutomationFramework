@@ -25,10 +25,10 @@ public class LandingPage extends BasePage {
     @FindBy(xpath = "//h3[normalize-space()='Consignees']")
     private WebElement consigneeMenu;
 
-    @FindBy(xpath = "//h3[normalize-space()='Transporter']")
+    @FindBy(xpath = "//span[text()='Transporter']")
     private WebElement transporterMenu;
 
-    @FindBy(xpath = "//h3[normalize-space()='Materials']")
+    @FindBy(xpath = "//span[text()='Materials']")
     private WebElement materialsMenu;
 
     @FindBy(xpath = "//h3[normalize-space()='Vehicles']")
@@ -53,33 +53,36 @@ public class LandingPage extends BasePage {
     public DepotPage openDepotPage() {
         waitForWebElementToBeClickable(depotMenu);
         depotMenu.click();
-        switchToNewWindow();
+        switchToChildWindow();
         return new DepotPage(driver);
     }
 
     public ConsigneePage openConsigneePage() {
         waitForWebElementToBeClickable(consigneeMenu);
         consigneeMenu.click();
-        switchToNewWindow();
+        switchToChildWindow();
         return new ConsigneePage(driver);
     }
 
-    public TransporterPage openTransporterPage() {
+    public TransporterPage openTransporterPage() throws InterruptedException {
         waitForWebElementToBeClickable(transporterMenu);
         transporterMenu.click();
+        Thread.sleep(2000);
         return new TransporterPage(driver);
     }
 
-    public MaterialsPage openMaterialsPage() {
+    public MaterialsPage openMaterialsPage() throws InterruptedException {
+    	
         waitForWebElementToBeClickable(materialsMenu);
         materialsMenu.click();
+        Thread.sleep(1000);
         return new MaterialsPage(driver);
     }
 
     public VehiclePage openVehiclePage() {
         waitForWebElementToBeClickable(vehiclesMenu);
         vehiclesMenu.click();
-        switchToNewWindow();
+        switchToChildWindow();
         return new VehiclePage(driver);
     }
 

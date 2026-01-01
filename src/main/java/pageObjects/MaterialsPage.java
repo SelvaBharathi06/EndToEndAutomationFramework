@@ -1,8 +1,10 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import abstractComponents.BasePage;
 
@@ -43,8 +45,8 @@ public class MaterialsPage extends BasePage {
     @FindBy(xpath = "//button[@class='el-button el-button--primary el-button--small']")
     private WebElement createMaterialButton;
 
-    @FindBy(xpath = "//div[@role='alert']//span")
-    private WebElement successMessage;
+    
+    By successMessage = By.xpath("//div[@role='alert']//span");
 
 
     public void createMaterial(String name, String code) {
@@ -52,7 +54,7 @@ public class MaterialsPage extends BasePage {
         waitForWebElementToBeClickable(addMaterialButton);
         addMaterialButton.click();
 
-        waitForWebElementToAppear(materialName);
+        waitForWebElementToBeClickable(materialName);
         materialName.sendKeys(name);
         materialCode.sendKeys(code);
         width.sendKeys("50");
@@ -67,8 +69,11 @@ public class MaterialsPage extends BasePage {
 
  
     public String getMaterialSuccessMessage() {
-        waitForWebElementToAppear(successMessage);
-        return successMessage.getText().trim();
+    	
+    	WebElement material =wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@role='alert']//span")));
+		String materialMsg= material.getText().trim();
+		System.out.println(materialMsg);
+        return materialMsg;
     }
     
     

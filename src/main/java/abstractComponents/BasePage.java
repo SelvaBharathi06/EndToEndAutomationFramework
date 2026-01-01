@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,7 +17,7 @@ public class BasePage {
 
 	protected WebDriver driver;
 	protected WebDriverWait wait;
-	protected String parentWindow;
+	
 
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
@@ -37,19 +38,38 @@ public class BasePage {
 	public void waitForWebElementToBeClickable(WebElement element) {
 		wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
+	
+	public void waitForPresenceOfElement(By element) {
+		wait.until(ExpectedConditions.presenceOfElementLocated(element));
+	}
+	
+	
 
-	public void switchToNewWindow() {
-		parentWindow = driver.getWindowHandle();
-		Set<String> windows = driver.getWindowHandles();
-		Iterator<String> iterator = windows.iterator();
-		iterator.next(); // parent
-		driver.switchTo().window(iterator.next()); // child
+	public void switchToChildWindow() {
+	    String currentWindow = driver.getWindowHandle();
+
+	    Set<String> windows = driver.getWindowHandles();
+	    for (String window : windows) {
+	        if (!window.equals(currentWindow)) {
+	            driver.switchTo().window(window);
+	            return;
+	        }
+	    }
 	}
 
-	public void closeAndReturnToParent() {
-		
+
+	public void closeCurrentAndSwitchBack() {
+	    String currentWindow = driver.getWindowHandle();
+
+	    Set<String> windows = driver.getWindowHandles();
 	    driver.close();
-	    driver.switchTo().window(parentWindow);	      
+
+	    for (String window : windows) {
+	        if (!window.equals(currentWindow)) {
+	            driver.switchTo().window(window);
+	            return;
+	        }
+	    }
 	}
 
 

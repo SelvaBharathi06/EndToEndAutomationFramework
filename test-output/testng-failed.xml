@@ -7,7 +7,7 @@
         <methods>
           <include name="launchApplication"/>
           <include name="tearDown"/>
-          <include name="completeIndentFlow" invocation-numbers="0"/>
+          <include name="endToEndTruckInFlow"/>
         </methods>
       </class> <!-- tests.EndToEndFlowTest -->
     </classes>

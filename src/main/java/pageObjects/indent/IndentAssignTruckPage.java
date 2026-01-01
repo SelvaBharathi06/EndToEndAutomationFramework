@@ -1,9 +1,12 @@
 package pageObjects.indent;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import abstractComponents.BasePage;
 
@@ -20,8 +23,8 @@ public class IndentAssignTruckPage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'cardlist-dropdown')]//input[contains(@placeholder,'Select')]")
     private WebElement filterSearchInput;
 
-    @FindBy(xpath = "//li[@class='el-select-dropdown__item']")
-    private WebElement filterOption;
+    //@FindBy(xpath = "//li[@class='el-select-dropdown__item']")
+    //private List<WebElement> filterOption;
 
     @FindBy(xpath = "//button[@class='el-button btn section_pbtn el-button--default']")
     private WebElement applyFilterButton;
@@ -83,26 +86,41 @@ public class IndentAssignTruckPage extends BasePage {
     @FindBy(xpath = "//span[normalize-space()='DOWNLOAD']")
     private WebElement downloadButton;
 
-    public void filterIndent(String filterValue) {
+    public void filterIndent(String filterValue) throws InterruptedException {
 
         waitForWebElementToBeClickable(filterButton);
         filterButton.click();
 
         waitForWebElementToBeClickable(filterSearchInput);
         filterSearchInput.sendKeys(filterValue);
-
-        waitForWebElementToBeClickable(filterOption);
-        filterOption.click();
+        
+		/*for(int i=0; i<filterOption.size(); i++)
+		{
+			if(filterOption.get(i).getText().equalsIgnoreCase("jest87"))
+			{
+				filterOption.get(i).click();
+			}
+		}*/
+        
+        By optionLocator = By.xpath(
+                "//div[contains(@class,'el-select-dropdown')]" +
+                "//li[contains(@class,'el-select-dropdown__item')]//span[normalize-space()='" + filterValue + "']"
+            );
+        
+        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(optionLocator));
+        option.click();
+ 
+		Thread.sleep(1000);
 
         applyFilterButton.click();
     }
 
-    public void searchIndentById(String indentId) {
+    public void searchIndentById(String indentId) throws InterruptedException {
 
         waitForWebElementToBeClickable(indentIdLabel);
         indentIdLabel.click();
-
         indentIdInput.sendKeys(indentId);
+        Thread.sleep(2000);
         searchButton.click();
     }
 
@@ -111,7 +129,7 @@ public class IndentAssignTruckPage extends BasePage {
 
         waitForWebElementToBeClickable(assignTruckButton);
         assignTruckButton.click();
-
+        waitForWebElementToBeClickable(vehiclePrefix);
         vehiclePrefix.sendKeys(prefix);
         vehicleNumber.sendKeys(number);
         driverMobile.sendKeys(mobile);
@@ -127,8 +145,20 @@ public class IndentAssignTruckPage extends BasePage {
         vehicleHeight.sendKeys(height);
 
         assignConfirmButton.click();
-
-        waitForWebElementToAppear(assignSuccessMessage);
+        
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='alert']")));
+        String asgndMsg =assignSuccessMessage.getText().trim();
+		System.out.println(asgndMsg);
+        
+    }
+    
+    public String getIndentStatus(String indentId) {
+        By status = By.id("indentv2-outbound-status-" + indentId);
+        waitForPresenceOfElement(status);
+        wait.until(ExpectedConditions.textToBe(status, "ASSIGNED"));
+        String asgndStatus = driver.findElement(status).getText().trim();
+		System.out.println(asgndStatus);
+		return asgndStatus;
     }
 
     public void markTruckReported() {
@@ -140,14 +170,20 @@ public class IndentAssignTruckPage extends BasePage {
         truckReportedYes.click();
     }
 
-    public void markTruckIn() {
+    public void markTruckIn(String indentID) {
 
         waitForWebElementToBeClickable(truckInButton);
         truckInButton.click();
 
         waitForWebElementToBeClickable(truckInConfirmButton);
         truckInConfirmButton.click();
+        
+        WebElement status1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("indentv2-outbound-status-"+indentID)));
+		String arvdstatus = status1.getText().trim();
+		System.out.println(arvdstatus);
     }
+    
+    
 
     public void downloadDocuments() {
 
@@ -158,11 +194,6 @@ public class IndentAssignTruckPage extends BasePage {
         downloadButton.click();
     }
     
-    public String getIndentStatus(String indentId) {
-        WebElement status =
-            driver.findElement(By.id("indentv2-outbound-status-" + indentId));
-        waitForWebElementToAppear(status);
-        return status.getText().trim();
-    }
+  
 
 }
